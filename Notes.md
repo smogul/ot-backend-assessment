@@ -23,7 +23,7 @@ The connection string adds `TrustServerCertificate=True` to the README's version
    dotnet run --project src/OT.Assessment.Consumer --launch-profile Docker
    ```
 
-The API listens on `http://localhost:5000`, and Swagger is at `http://localhost:5000/swagger`.
+The API listens on `http://localhost:5000`. Opening that address redirects to Swagger UI at `http://localhost:5000/swagger`, where all three endpoints can be tried with the Execute button. The POST endpoint already holds a valid example wager, so it works without typing anything.
 
 On a Mac, turn off AirPlay Receiver first (System Settings > General > AirDrop & Handoff), because it uses port 5000.
 
