@@ -1,0 +1,37 @@
+# Starts everything the assessment needs on your own computer.
+#   Start:  docker compose up -d
+#   Stop:   docker compose down
+#
+# The SQL password below is only for this local throwaway container.
+services:
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: ot-rabbitmq
+    ports:
+      - "5672:5672"     # The door the API and consumer use.
+      - "15672:15672"   # The web dashboard: http://localhost:15672 (guest/guest).
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    platform: linux/amd64   # There is no Arm build, so Apple Silicon Macs run it through emulation.
+    container_name: ot-sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "Local_Dev_Only_123"
+      MSSQL_PID: Developer
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+      - ./DatabaseGenerate.sql:/scripts/DatabaseGenerate.sql:ro
+
+volumes:
+  rabbitmq-data:
+  sqlserver-data:

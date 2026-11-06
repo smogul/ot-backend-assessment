@@ -1,0 +1,19 @@
+# Builds the solution and runs the unit tests on every push to GitHub.
+# Think of it as a referee who checks every change, even if you forget to.
+name: Build and test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+      - run: dotnet build OT.Assessment.sln
+      - run: dotnet test test/OT.Assessment.UnitTests/OT.Assessment.UnitTests.csproj --no-build

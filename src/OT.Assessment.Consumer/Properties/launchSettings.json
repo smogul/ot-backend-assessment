@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "OT.Assessment.Consumer": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    },
+    "Docker": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development",
+        "ConnectionStrings__OTAssessmentDb": "Server=localhost,1433;Database=OT_Assessment_DB;User Id=sa;Password=Local_Dev_Only_123;TrustServerCertificate=True;"
+      }
+    }
+  }
+}
